@@ -1,5 +1,6 @@
 package com.enn.springboot;
 
+import com.enn.springboot.entity.Order;
 import com.enn.springboot.producer.RabbitSender;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,5 +27,13 @@ public class RabbitmqSpringbootProducerApplicationTests {
         map.put("number", "hello");
         map.put("send time:", format.format(new Date()));
         rabbitSender.send("Hello RabbitMQ From SpringBoot!", map);
+    }
+    @Test
+    public void testOrderSender() {
+        Order order=new Order();
+        order.setId(23);
+        order.setName("测试");
+        order.setDesc("试试试试");
+        rabbitSender.sendOrder(order);
     }
 }

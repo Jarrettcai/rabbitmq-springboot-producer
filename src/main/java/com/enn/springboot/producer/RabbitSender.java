@@ -1,5 +1,6 @@
 package com.enn.springboot.producer;
 
+import com.enn.springboot.entity.Order;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
@@ -27,6 +28,11 @@ public class RabbitSender {
         Message msg = MessageBuilder.createMessage(message, mhs);
         rabbitTemplate.setConfirmCallback(confirmCallback);
         rabbitTemplate.setReturnCallback(returnCallback);
-        rabbitTemplate.convertAndSend("exchange_1", "spring.world", msg);
+        rabbitTemplate.convertAndSend("exchange_1", "springboot.world", msg);
+    }
+    public void sendOrder(Order order) {
+        rabbitTemplate.setConfirmCallback(confirmCallback);
+        rabbitTemplate.setReturnCallback(returnCallback);
+        rabbitTemplate.convertAndSend("exchange_2", "springboot.world", order);
     }
 }
